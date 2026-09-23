@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>دعوة زفافي </title>
+  
+  <!-- خطوط جوجل الأنيقة -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,700;1,400&family=Cairo:wght@400;600;700&family=Reem+Kufi:wght@600&display=swap" rel="stylesheet">
+  
+  <!-- أيقونات FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary: #d4af37;       /* ذهبي أنيق */
+      --primary-glow: rgba(212, 175, 55, 0.3);
+      --card-bg: rgba(15, 23, 42, 0.65); /* زجاجي شفاف */
+      --card-border: rgba(212, 175, 55, 0.3);
+      --text-main: #ffffff;
+      --text-muted: #e2e8f0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      background-color: #0b1120;
+      padding: 20px 15px 40px 15px;
+      overflow-x: hidden;
+    }
+
+    /* طبقة خلفية الصورة مع الشفافية والفلتر */
+    .bg-image {
+      position: fixed;
+      inset: 0;
+      background-image: url('bg.jpg'); /* حط صورتك بنفس الاسم جنب ملف index.html */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0.35; /* نسبة الشفافية تقدر تعدلها من هنا */
+      z-index: -2;
+      filter: blur(1px);
+    }
+
+    /* طبقة تدرج لوني فوق الصورة لضمان وضوح الكلام */
+    .bg-overlay {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(15, 23, 42, 0.7) 0%, rgba(11, 17, 32, 0.92) 100%);
+      z-index: -1;
+    }
+
+    /* شاشة الغلاف والظرف المبدئي */
+    #envelope-screen {
+      position: fixed;
+      inset: 0;
+      background: #0b1120;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      transition: all 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    .envelope-box {
+      background: rgba(30, 41, 59, 0.9);
+      border: 2px solid var(--primary);
+      border-radius: 24px;
+      padding: 40px 25px;
+      text-align: center;
+      max-width: 360px;
+      width: 90%;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 25px var(--primary-glow);
+      backdrop-filter: blur(10px);
+    }
+
+    .wax-seal {
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle, #dfbc55 30%, #8c6a28 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px auto;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+      color: #fff;
+      font-size: 28px;
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
+    .open-btn {
+      margin-top: 25px;
+      background: linear-gradient(135deg, var(--primary), #b38b22);
+      color: #0b1120;
+      font-weight: 700;
+      padding: 12px 28px;
+      border-radius: 30px;
+      border: none;
+      font-size: 1.05rem;
+      cursor: pointer;
+      box-shadow: 0 4px 15px var(--primary-glow);
+      transition: 0.3s;
+    }
+
+    .open-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.15);
+    }
+
+    /* الحاوية الرئيسية للفقرات */
+    .content-wrapper {
+      max-width: 480px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 18px; /* المسافة بين كل فقرة والتانية */
+      margin-top: 15px;
+    }
+
+    /* تصميم الكارت الزجاجي لكل فقرة */
+    .card-block {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 24px 20px;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+      position: relative;
+    }
+
+    .bismillah {
+      font-family: 'Amiri', serif;
+      font-size: 1.35rem;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .couple-names {
+      font-family: 'Amiri', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+    }
+
+    .couple-names span {
+      color: var(--primary);
+      font-size: 2.2rem;
+      margin: 0 8px;
+    }
+
+    .invitation-text {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+    }
+
+    /* سكشن العداد التنازلي */
+    .block-title {
+      font-size: 1rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .time-unit {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 12px;
+      padding: 10px 4px;
+    }
+
+    .time-num {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: block;
+    }
+
+    .time-lbl {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* سكشن تفاصيل المكان والميعاد */
+    .detail-row {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      text-align: right;
+      margin-bottom: 16px;
+    }
+
+    .detail-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .detail-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 1.15rem;
+      flex-shrink: 0;
+    }
+
+    .detail-info h4 {
+      font-size: 1rem;
+      color: #fff;
+      margin-bottom: 3px;
+    }
+
+    .detail-info p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    /* الأزرار */
+    .actions-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .btn-maps {
+      background: linear-gradient(135deg, var(--primary), #a37c32);
+      color: #0b1120;
+    }
+
+    .btn-rsvp {
+      background: #25d366;
+      color: #fff;
+    }
+
+    .btn-cal {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.1);
+    }
+
+    /* زر الموسيقى العائم */
+    #music-control {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 46px;
+      height: 46px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1.5px solid var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      cursor: pointer;
+      z-index: 90;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      transition: 0.3s;
+    }
+
+    #music-control:hover {
+      transform: scale(1.1);
+    }
+
+    .footer-text {
+      text-align: center;
+      font-family: 'Amiri', serif;
+      color: var(--primary);
+      font-size: 1.1rem;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- طبقة الصورة الخلفية والتدرج -->
+  <div class="bg-image"></div>
+  <div class="bg-overlay"></div>
+
+  <!-- ملف الصوت: حط الأغنية باسم music.mp3 في نفس الفولدر -->
+  <audio id="wedding-audio" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- زر التحكم في الموسيقى (عائم) -->
+  <button id="music-control" onclick="toggleMusic()" title="تشغيل / إيقاف الصوت">
+    <i class="fa-solid fa-music" id="music-icon"></i>
+  </button>
+
+  <!-- الغلاف والظرف المبدئي -->
+  <div id="envelope-screen">
+    <div class="envelope-box">
+      <div class="wax-seal">
+        <i class="fa-solid fa-heart"></i>
+      </div>
+      <h3 style="font-family: 'Reem Kufi', sans-serif; color: var(--primary); font-size: 1.4rem; margin-bottom: 6px;">دعوة زفاف خاصة</h3>
+      <p style="color: var(--text-muted); font-size: 0.95rem;"> سمي الله و إنت داخل </p>
+      <button class="open-btn" onclick="openInvitation()">
+        <i class="fa-solid fa-envelope-open me-2"></i> اضغط لفتح الدعوة
+      </button>
+    </div>
+  </div>
+
+  <!-- محتوى الدعوة (فقرات منفصلة وكروت زجاجية) -->
+  <div class="content-wrapper">
+
+    <!-- الفقرة 1: البسملة والآية القرآنية وأسماء العروسين -->
+    <div class="card-block">
+      <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+      
+      <p style="font-family: 'Amiri', serif; font-size: 1.15rem; color: #f1f5f9; line-height: 1.8; margin: 12px 0 16px 0;">
+        ﴿ وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ﴾
+      </p>
+
+      <div class="couple-names">
+        سعد <span>&</span> مريم
+      </div>
+    </div>
+
+    <!-- الفقرة 2: نص الدعوة الترحيبي -->
+    <div class="card-block">
+      <p class="invitation-text">
+        لأن الفرحة مش بتكمل إلا بوجود الناس القريبة من قلوبنا، بنتشرف بدعوتكم تشاركونا أجمل وأحلى ليالي العمر، ونبدأ سوا رحلة جديدة على خير وبركة. وجودكم هيفرّحنا ويزود ليلتنا نور وسعادة!
+      </p>
+    </div>
+
+    <!-- الفقرة 3: العداد التنازلي -->
+    <div class="card-block">
+      <div class="block-title"><i class="fa-regular fa-clock me-1"></i> العد التنازلي لليلتنا</div>
+      <div class="countdown-grid">
+        <div class="time-unit"><span class="time-num" id="days">00</span><span class="time-lbl">أيام</span></div>
+        <div class="time-unit"><span class="time-num" id="hours">00</span><span class="time-lbl">ساعات</span></div>
+        <div class="time-unit"><span class="time-num" id="minutes">00</span><span class="time-lbl">دقائق</span></div>
+        <div class="time-unit"><span class="time-num" id="seconds">00</span><span class="time-lbl">ثواني</span></div>
+      </div>
+    </div>
+
+    <!-- الفقرة 4: تفاصيل الميعاد والمكان -->
+    <div class="card-block">
+      <div class="detail-row">
+        <div class="detail-icon"><i class="fa-regular fa-calendar-check"></i></div>
+        <div class="detail-info">
+          <h4>الخميس، 24 سبتمبر 2026</h4>
+          <p>الساعة 10:00 مساءً</p>
+        </div>
+      </div>
+
+      <div class="detail-row">
+        <div class="detail-icon"><i class="fa-solid fa-location-dot"></i></div>
+        <div class="detail-info">
+          <h4>قاعة La Rose (لاروز)</h4>
+          <p>دكرنس، طريق المنصورة - أمام كوبري المرسا</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- الفقرة 5: أزرار التفاعل (لوكيشن، واتساب، تقويم) -->
+    <div class="card-block actions-grid">
+      <!-- زر اللوكيشن -->
+      <a href="https://maps.app.goo.gl/hBAPLfbs6vbHrsKq9" target="_blank" class="btn btn-maps">
+        <i class="fa-solid fa-map-location-dot"></i> موقع القاعة على الخريطة
+      </a>
+
+      <!-- زر إضافة للتقويم -->
+      <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=زفاف+سعد+ومريم&dates=20260924T200000Z/20260924T230000Z&details=فرح+سعد+ومريم+-+قاعة+لاروز+بدكرنس&location=قاعة+أفراح+لا+روز+بدكرنس" target="_blank" class="btn btn-cal">
+        <i class="fa-regular fa-calendar-plus"></i> إضافة لمفكرة جوجل
+      </a>
+    </div>
+
+    <div class="footer-text">
+      عقبال عندكم جميعاً، وفرحتنا بيكوا وليكوا! 🤍
+    </div>
+
+  </div>
+
+  <script>
+    const audio = document.getElementById('wedding-audio');
+    const musicIcon = document.getElementById('music-icon');
+
+    // فتح الظرف وتشغيل المزيكا
+    function openInvitation() {
+      const env = document.getElementById('envelope-screen');
+      env.style.opacity = '0';
+      env.style.transform = 'scale(1.08)';
+      
+      // تشغيل الصوت
+      audio.play().catch(e => {
+        console.log("Audio play blocked until further interaction", e);
+      });
+
+      setTimeout(() => {
+        env.style.display = 'none';
+      }, 750);
+    }
+
+    // زر إيقاف وتشغيل الصوت العائم
+    function toggleMusic() {
+      if (audio.paused) {
+        audio.play();
+        musicIcon.className = "fa-solid fa-music";
+      } else {
+        audio.pause();
+        musicIcon.className = "fa-solid fa-volume-xmark";
+      }
+    }
+
+    // العداد التنازلي: 24 سبتمبر 2026 - 10 مساءً
+    const targetDate = new Date("2026-09-24T22:00:00").getTime();
+
+    setInterval(function() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance < 0) {
+        document.querySelector('.countdown-grid').innerHTML = "<div style='grid-column: span 4; font-size:1.2rem; color:var(--primary);'>الليلة ليلتنا.. منورين جميعاً 🎉</div>";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("days").innerText = days.toString().padStart(2, '0');
+      document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+      document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+      document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+    }, 1000);
+  </script>
+</body>
+</html>
